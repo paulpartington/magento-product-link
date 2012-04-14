@@ -85,7 +85,7 @@ class PCP_Productlink_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Ca
             $this->setChild('view_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
-                        'label'     => Mage::helper('catalog')->__('View'),
+                        'label'     => Mage::helper('catalog')->__('View Product'),
                         'onclick'   => 'window.open(\''.Mage::getUrl($this->getProduct()->getUrlPath()).'\')',
                         'class'     => 'view'
                 ))
