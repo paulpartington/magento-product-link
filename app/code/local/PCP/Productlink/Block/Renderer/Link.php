@@ -5,6 +5,12 @@ class PCP_Productlink_Block_Renderer_Link extends Mage_Adminhtml_Block_Widget_Gr
     public function render(Varien_Object $row) {
         $_product = Mage::getModel('catalog/product')->load($row->getId());
 
+        $productLinkHelper = Mage::helper('productlink');
+
+        if ( !$productLinkHelper->canViewProduct($_product) ) {
+            return false;
+        }
+
         $data = '';
 
         if ( $_product->getUrlPath() ) {

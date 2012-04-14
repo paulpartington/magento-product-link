@@ -13,5 +13,10 @@
                 </rewrite>
             </adminhtml>
         </blocks>
+        <helpers>
+            <productlink>
+                <class>PCP_Productlink_Helper</class>
+            </productlink>
+        </helpers>
     </global>
 </config>
