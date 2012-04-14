@@ -9,6 +9,7 @@
         <blocks>
             <adminhtml>
                 <rewrite>
+                    <catalog_product_edit>PCP_Productlink_Block_Catalog_Product_Edit</catalog_product_edit>
                     <catalog_product_grid>PCP_Productlink_Block_Catalog_Product_Grid</catalog_product_grid>
                 </rewrite>
             </adminhtml>

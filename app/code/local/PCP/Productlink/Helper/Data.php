@@ -17,7 +17,7 @@ class PCP_Productlink_Helper_Data extends Mage_Core_Helper_Data {
 
         }
 
-        // Check if product is visible.
+        // Check if product is visible
 
         if ( $_product->getVisibility() == 1 ) {
 
