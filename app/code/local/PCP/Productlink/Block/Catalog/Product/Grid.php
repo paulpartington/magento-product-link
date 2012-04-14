@@ -8,6 +8,48 @@ class PCP_Productlink_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Ca
 
     }
 
+    protected function _prepareCollection()
+    {
+        $store = $this->_getStore();
+        $collection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToSelect('sku')
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('attribute_set_id')
+            ->addAttributeToSelect('type_id');
+
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            $collection->joinField('qty',
+                'cataloginventory/stock_item',
+                'qty',
+                'product_id=entity_id',
+                '{{table}}.stock_id=1',
+                'left');
+        }
+        if ($store->getId()) {
+            //$collection->setStoreId($store->getId());
+            $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
+            $collection->addStoreFilter($store);
+            $collection->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner', $adminStore);
+            $collection->joinAttribute('custom_name', 'catalog_product/name', 'entity_id', null, 'inner', $store->getId());
+            $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner', $store->getId());
+            $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner', $store->getId());
+            $collection->joinAttribute('price', 'catalog_product/price', 'entity_id', null, 'left', $store->getId());
+            $collection->joinAttribute('url_key', 'catalog_product/url_key', null, 'entity_id', 'inner', $store->getId());
+        }
+        else {
+            $collection->addAttributeToSelect('price');
+            $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
+            $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
+            $collection->joinAttribute('url_key', 'catalog_product/url_key', 'entity_id', null, 'inner', $store->getId());
+        }
+
+        $this->setCollection($collection);
+
+        parent::_prepareCollection();
+        $this->getCollection()->addWebsiteNamesToResult();
+        return $this;
+    }
+
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id',
@@ -99,11 +141,13 @@ class PCP_Productlink_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Ca
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
 
-        $this->addColumn('link',
+        $this->addColumn('url_key',
             array(
                 'header'=> Mage::helper('catalog')->__('Link'),
                 'width' => '70px',
-                'index' => 'link'
+                'index' => 'url_key',
+                'type'  => 'action',
+                'renderer' => new PCP_Productlink_Block_Renderer_Link()
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -138,10 +182,6 @@ class PCP_Productlink_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Ca
                 'sortable'  => false,
                 'index'     => 'stores',
         ));
-
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss')) {
-            $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'));
-        }
 
         return parent::_prepareColumns();
     }
