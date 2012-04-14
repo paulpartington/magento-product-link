@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_edit">
+            <action method="setTemplate"><template>productlink/catalog/product/edit.phtml</template></action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+</layout>

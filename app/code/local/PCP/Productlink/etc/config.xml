@@ -5,6 +5,15 @@
             <version>0.1.0</version>
         </PCP_Productlink>
     </modules>
+    <adminhtml>
+        <layout>
+            <updates>
+                <productlink>
+                    <file>productlink.xml</file>
+                </productlink>
+            </updates>
+        </layout>
+    </adminhtml>
     <global>
         <blocks>
             <adminhtml>

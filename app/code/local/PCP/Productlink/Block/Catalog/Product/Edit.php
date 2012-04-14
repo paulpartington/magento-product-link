@@ -3,7 +3,7 @@ class PCP_Productlink_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Ca
 {
 
     public function __construct() {
-        return parent::__construct();
+        parent::__construct();
     }
 
     protected function _prepareLayout()
@@ -81,7 +81,22 @@ class PCP_Productlink_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Ca
             }
         }
 
+        if ( Mage::helper('productlink')->canViewProduct( $this->getProduct() ) ) {
+            $this->setChild('view_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label'     => Mage::helper('catalog')->__('View'),
+                        'onclick'   => 'window.open(\''.Mage::getUrl($this->getProduct()->getUrlPath()).'\')',
+                        'class'     => 'view'
+                ))
+            );
+        }
+
         return parent::_prepareLayout();
+    }
+
+    public function getViewButtonHtml() {
+        return $this->getChildHtml('view_button');
     }
 
 }
