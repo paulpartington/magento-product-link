@@ -5,4 +5,13 @@
             <version>0.1.0</version>
         </PCP_Productlink>
     </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_grid>PCP_Productlink_Block_Catalog_Product_Grid</catalog_product_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
 </config>
