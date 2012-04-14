@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PCP_Productlink>
+            <version>0.1.0</version>
+        </PCP_Productlink>
+    </modules>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PCP_Productlink>
+            <active>true</active>
+            <codePool>local</codePool>
+        </PCP_Productlink>
+    </modules>
+</config>

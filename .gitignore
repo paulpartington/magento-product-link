@@ -1,5 +1,16 @@
 .idea
-app/*
+app/code/community/*
+app/code/core/*
+app/code/local/*
+!app/code/local/PCP
+app/design/*
+app/etc/*
+!app/etc/modules
+app/etc/modules/*
+!app/etc/modules/PCP_Productlink.xml
+app/locale/*
+app/.htaccess
+app/Mage.php
 downloader/*
 errors/*
 includes/*
